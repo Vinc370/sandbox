@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using dotnet.Data;
 using dotnet.Interface;
+using dotnet.Interface.Generic;
 using dotnet.Models;
 using Microsoft.Data.SqlClient;
 
@@ -43,15 +44,25 @@ namespace dotnet.Repository
         public async Task<IEnumerable<Database>> GetAll()
         {
             using var connection = context.CreateConnection();
-            var indexD = await connection.QueryAsync<Database>("SELECT * FROM users");
+            var indexD = await connection.QueryAsync<Database, UserData, Database>("SELECT users.*, datas.* FROM users INNER JOIN datas ON users.DataID = datas.Id", (databases, users) =>
+            {
+                databases.Data = users;
+                return databases;
+            }, splitOn: "DataID");
+
             return indexD.ToList();
         }
 
         public async Task<Database> GetById(int id)
         {
             using var connection = context.CreateConnection();
-            var indexD = await connection.QuerySingleOrDefaultAsync<Database>("SELECT users.Id, users.Email, users.Password, datas.Name  FROM users INNER JOIN datas ON users.DataID = datas.Id WHERE users.Id = @Id", new { id });
-            return indexD;
+            var indexD = await connection.QueryAsync<Database, UserData, Database>("SELECT users.*, datas.* FROM users INNER JOIN datas ON users.DataID = datas.Id WHERE users.Id = @Id", (databases, users) =>
+            {
+                databases.Data = users;
+                return databases;
+            }, new { id });
+
+            return indexD.FirstOrDefault();
         }
 
         public async Task<IEnumerable<Database>> GetByName(string name)

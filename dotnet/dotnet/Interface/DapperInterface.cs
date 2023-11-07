@@ -1,4 +1,5 @@
-﻿using dotnet.Models;
+﻿using dotnet.Interface.Generic;
+using dotnet.Models;
 
 namespace dotnet.Interface
 {
