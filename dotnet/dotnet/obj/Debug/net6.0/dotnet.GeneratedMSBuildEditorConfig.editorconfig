@@ -15,8 +15,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Assignment\Bootcamp\dotnet\dotnet\dotnet
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/DatabaseControllerDapper/IndexDapper.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YWJhc2VDb250cm9sbGVyRGFwcGVyXEluZGV4RGFwcGVyLmNzaHRtbA==
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/DatabaseControllerDapper/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YWJhc2VDb250cm9sbGVyRGFwcGVyXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/DatabaseControllerDapper/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YWJhc2VDb250cm9sbGVyRGFwcGVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/DatabaseControllerDapper/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YWJhc2VDb250cm9sbGVyRGFwcGVyXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/DatabaseControllerDapper/View.cshtml]
@@ -41,6 +49,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Home/Javascript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxKYXZhc2NyaXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Home/Privacy.cshtml]

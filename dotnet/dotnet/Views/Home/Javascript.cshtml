@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<script>
+    function getAll()
+    {
+        fetch("https://localhost:7026/api/database/indexapi")
+            .then(response => response.json())
+            .then(render => view(render))
+            .catch(error => console.error('Error!', error));
+    }
+
+    function view(entry)
+    {
+        let index = " ";
+
+        for (let model of entry)
+        {
+            index += "<tr>";
+            index += "<td hidden>" + model.id + "</td >";
+            index += "<td>" + model.email + "</td >";
+            index += "<td>" + model.password + "</td >";
+            index += "<td>" + model.data.name + "</td >";
+            index += "</tr >";
+        }
+        document.getElementById("indexjs").innerHTML = index;
+    }
+
+    getAll();
+</script>
+
+<div style="padding-top:5.5%;">
+    <div style="padding-bottom:1%;">
+        <h1>User Database</h1>
+    </div>
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="indexjs">
+            <!--index here-->
+        </tbody>
+    </table>
+</div>

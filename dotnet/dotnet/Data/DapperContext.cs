@@ -9,7 +9,7 @@ namespace dotnet.Data
         private readonly string connectionString;
         public DapperContext(IConfiguration configuration)
         {
-            configuration = configuration;
+            this.configuration = configuration;
             connectionString = configuration.GetConnectionString("Default");
         }
         public IDbConnection CreateConnection() => new MySqlConnection(connectionString);

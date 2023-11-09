@@ -42,7 +42,7 @@ namespace dotnet.Controllers
         public async Task<IActionResult> Create(Database database)
         {
             databaseInterface.Create(database);
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         [HttpPost]
@@ -50,14 +50,14 @@ namespace dotnet.Controllers
         {
             Database database = await databaseInterface.GetById(id);
             databaseInterface.Delete(database);
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(Database database)
         {
             databaseInterface.Update(database);
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
     }
 }

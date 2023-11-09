@@ -7,6 +7,6 @@ namespace dotnet.Interface
     {
         Task Create(Database model);
         Task Update(Database model);
-        Task Delete(Database model);
+        Task Delete(int id);
     }
 }

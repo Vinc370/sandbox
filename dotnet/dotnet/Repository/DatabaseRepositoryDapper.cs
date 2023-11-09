@@ -22,23 +22,32 @@ namespace dotnet.Repository
             parameter.Add("Id", model.Id);
             parameter.Add("Email", model.Email);
             parameter.Add("Password", model.Password);
-            parameter.Add("DataID", model.DataID);
+            parameter.Add("DataID", model.Data.Id);
+            parameter.Add("Name", model.Data.Name);
+            parameter.Add("Phone", model.Data.Phone);
+            parameter.Add("Picture", model.Data.Picture);
+            parameter.Add("Bio", model.Data.Bio);
 
             using var connection = context.CreateConnection();
-            var user = await connection.ExecuteAsync(
-                "INSERT INTO" +
-                    "users(`Id`, `Email`, `Password`, `DataID`)" +
-                    "VALUES('@Id', '@Email', '@Password', '@DataId');",
+            await connection.QueryMultipleAsync(@"
+                INSERT INTO " +
+                    "users(Id, Email, Password, DataID) " +
+                    "VALUES(@Id, @Email, @Password, @Id);" +
+                "INSERT INTO " +
+                    "datas(Id, Name, Phone, Picture, Bio) " +
+                    "VALUES( @Id, @Name, @Phone, @Picture, @Bio);",
                 parameter);
         }
 
-        public async Task Delete(Database model)
+        public async Task Delete(int id)
         {
             using var connection = context.CreateConnection();
-            await connection.ExecuteAsync(
-                "DELETE FROM" +
-                    "users WHERE(`Id` = '@Id');",
-                new { model.Id });
+            await connection.QueryMultipleAsync(@"
+                DELETE FROM " +
+                    "users WHERE Id = @Id;" +
+                "DELETE FROM " +
+                    "datas WHERE Id = @Id;",
+                new { id });
         }
 
         public async Task<IEnumerable<Database>> GetAll()
@@ -48,7 +57,7 @@ namespace dotnet.Repository
             {
                 databases.Data = users;
                 return databases;
-            }, splitOn: "DataID");
+            });
 
             return indexD.ToList();
         }
@@ -77,13 +86,25 @@ namespace dotnet.Repository
             parameter.Add("Email", model.Email);
             parameter.Add("Password", model.Password);
             parameter.Add("DataID", model.DataID);
+            parameter.Add("Name", model.Data.Name);
+            parameter.Add("Phone", model.Data.Phone);
+            parameter.Add("Picture", model.Data.Picture);
+            parameter.Add("Bio", model.Data.Bio);
 
             using var connection = context.CreateConnection();
-            await connection.ExecuteAsync(
-                "INSERT INTO" +
-                    "users(`Id`, `Email`, `Password`, `DataID`)" +
-                    "VALUES('@Id', '@Email', '@Password', '@DataId')" +
-                "WHERE Id = @Id;",
+            await connection.QueryMultipleAsync(@"
+                UPDATE " +
+                    "users " +
+                "SET " +
+                    "Id = @Id, Email = @Email, Password = @Password, DataID = @Id " + 
+                "WHERE " +
+                    "Id = @Id; " +
+                "UPDATE " +
+                    "datas " +
+                "SET " +
+                    "Id = @Id, Name = @Name, Phone = @Phone, Picture = @Picture, Bio = @Bio " + 
+                "WHERE " +
+                    "Id = @Id; ",
                 parameter);
         }
 

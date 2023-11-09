@@ -12,6 +12,8 @@ builder.Services.AddScoped<DatabaseInterface, DatabaseRepository>();
 builder.Services.AddScoped<PersonInterface, PersonRepository>();
 builder.Services.AddScoped<DapperInterface, DatabaseRepositoryDapper>();
 builder.Services.AddSingleton<DapperContext>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
 builder.Services.AddDbContext<ApplicationContext>

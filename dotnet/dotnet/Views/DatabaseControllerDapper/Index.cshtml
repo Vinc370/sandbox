@@ -24,12 +24,12 @@
     {
         <tbody>
             <tr>
-                <td hidden>@item?.Id</td>
-                <td>@item?.Email</td>
-                <td>@item?.Password</td>
+                <td hidden>@Html.DisplayFor(model => item.Id)</td>
+                <td>@Html.DisplayFor(model => item.Email)</td>
+                <td>@Html.DisplayFor(model => item.Password)</td>
                 @if (@item?.DataID != null)
                 {
-                    <td>@item.Data?.Name</td>
+                    <td>@Html.DisplayFor(model => item.Data.Name)</td>
                 }
                 else
                 {
@@ -37,17 +37,17 @@
                 }
                 <td style="width:10%">
                     <div style="width:100%">
-                      <button type="button" onclick="location.href='@Url.Action("view", "database", new {id=@item.Id })'" class="btn btn-primary btn-sm" style="width:100%">View</button>
+                      <button type="button" onclick="location.href='@Url.Action("view", "api/database", new {id=@item.Id }).Replace("%2F", "/")'" class="btn btn-primary btn-sm" style="width:100%">View</button>
                     </div>
                 </td>
                 <td style="width:10%">
                     <div style="width:100%">
-                      <button type="button" onclick="location.href='@Url.Action("update", "database", new {id=@item.Id })'" class="btn btn-info btn-sm" style="width:100%">Edit</button>
+                      <button type="button" onclick="location.href='@Url.Action("update", "api/database", new {id=@item.Id }).Replace("%2F", "/")'" class="btn btn-info btn-sm" style="width:100%">Edit</button>
                     </div>
                 </td>
                 <td style="width:10%">
                     <div style="width:100%">
-                      <form method="post" asp-action="Delete" asp-route-Id="@item.Id">
+                      <form method="post" asp-action="DeleteAPI" asp-route-Id="@item.Id">
                           <input asp-for="@item.Id" class="form-control" value="@item?.Id" hidden/>
                           <button type="submit" class="btn btn-danger btn-sm" style="width:100%">Delete</button>
                       </form>
@@ -60,6 +60,6 @@
 </div>
 <div style="margin:auto; width:100%; padding-top:2%">
     <div style="margin:auto; width: 15%">
-        <button type="button" onclick="location.href='@Url.Action("create","database")'" class="btn btn-success btn-sm" style="width:100%; margin: auto">Create</button>
+        <button type="button" onclick="location.href='https://localhost:7026/api/database/create'" class="btn btn-success btn-sm" style="width:100%; margin: auto">Create</button>
     </div>
 </div>
