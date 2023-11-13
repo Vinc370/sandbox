@@ -1,5 +1,6 @@
 using dotnet.Data;
 using dotnet.Interface;
+using dotnet.Models;
 using dotnet.Repository;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DatabaseInterface, DatabaseRepository>();
 builder.Services.AddScoped<PersonInterface, PersonRepository>();
+builder.Services.AddScoped<PersonQuery<Person>, PersonQueryRepository>();
+builder.Services.AddScoped<PersonCommand<Person>, PersonCommandRepository>();
 builder.Services.AddScoped<DapperInterface, DatabaseRepositoryDapper>();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddEndpointsApiExplorer();
