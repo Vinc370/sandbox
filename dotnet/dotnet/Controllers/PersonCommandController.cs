@@ -30,7 +30,7 @@ namespace dotnet.Controllers
             return Redirect("https://localhost:7026/api/personquery/index");
         }
 
-        [HttpPost("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> delete(int id)
         {
             await command.Delete(id);
