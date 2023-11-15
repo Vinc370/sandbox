@@ -10,9 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DatabaseInterface, DatabaseRepository>();
-builder.Services.AddScoped<PersonInterface, PersonRepository>();
-builder.Services.AddScoped<PersonQuery<Person>, PersonQueryRepository>();
-builder.Services.AddScoped<PersonCommand<Person>, PersonCommandRepository>();
+builder.Services.AddScoped<GenericQuery<Person>, PersonQueryRepository>();
+builder.Services.AddScoped<GenericCommand<Person>, PersonCommandRepository>();
 builder.Services.AddScoped<DapperInterface, DatabaseRepositoryDapper>();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddEndpointsApiExplorer();
