@@ -24,6 +24,7 @@
             body: JSON.stringify(item)
         })
         .then(response => response.json())
+        .then(setTimeout(function() { location.href = 'https://localhost:7026/api/personquery/index'; }, 1000))
         .catch(error => console.error('Error!', error));
     }
 </script>

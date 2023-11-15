@@ -9,9 +9,9 @@ namespace dotnet.Controllers
     [ApiController]
     public class PersonCommandController : Controller
     {
-        private readonly PersonCommand<Person> command;
+        private readonly GenericCommand<Person> command;
 
-        public PersonCommandController(PersonCommand<Person> command)
+        public PersonCommandController(GenericCommand<Person> command)
         {
             this.command = command;
         }

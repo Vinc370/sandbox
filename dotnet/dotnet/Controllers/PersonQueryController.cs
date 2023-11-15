@@ -8,9 +8,9 @@ namespace dotnet.Controllers
     [ApiController]
     public class PersonQueryController : Controller
     {
-        private readonly PersonQuery<Person> query;
+        private readonly GenericQuery<Person> query;
 
-        public PersonQueryController (PersonQuery<Person> query)
+        public PersonQueryController (GenericQuery<Person> query)
         {
             this.query = query;
         }
@@ -35,10 +35,17 @@ namespace dotnet.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> ViewAPI(int id)
         {
             Person index = await query.FindById(id);
             return Ok(index);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> View(int id)
+        {
+            Person index = await query.FindById(id);
+            return View(index);
         }
     }
 }

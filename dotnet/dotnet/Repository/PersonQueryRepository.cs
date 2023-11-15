@@ -5,7 +5,7 @@ using dotnet.Models;
 
 namespace dotnet.Repository
 {
-    public class PersonQueryRepository : PersonQuery<Person>
+    public class PersonQueryRepository : GenericQuery<Person>
     {
         private readonly DapperContext context;
         public PersonQueryRepository(DapperContext context)

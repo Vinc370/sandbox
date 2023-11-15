@@ -5,7 +5,7 @@ using dotnet.Models;
 
 namespace dotnet.Repository
 {
-    public class PersonCommandRepository : PersonCommand<Person>
+    public class PersonCommandRepository : GenericCommand<Person>
     {
         private readonly DapperContext context;
 
@@ -25,14 +25,14 @@ namespace dotnet.Repository
             await connection.QueryAsync(@"
                 INSERT INTO " +
                     "person(id, name, dob) " +
-                    "VALUES(@Id, @Name, @Dob);",
+                    "VALUES(@Id, @Name, @Dob); ",
                 parameter);
         }
 
         public async Task Delete(int id)
         {
             using var connection = context.CreateConnection();
-            await connection.QueryAsync(@"
+            await connection.QueryMultipleAsync(@"
                 DELETE FROM " +
                     "person WHERE id = @id;",
                 new { id });

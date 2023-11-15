@@ -10,7 +10,7 @@
     function remove(id)
     {
         fetch("https://localhost:7026/api/personcommand/delete/" + id)
-        .then(location.reload())
+        .then(setTimeout(function() { location.reload() }, 500)))
         .catch(error => console.error('Error!', error));
     }
 </script>
@@ -37,7 +37,7 @@
                 <td>@item.dob</td>
                 <td style="width:10%">
                     <div style="width:100%">
-                      <button type="button" onclick="location.href='@Url.Action("index", "personquery", new { id=@item.Id })'" class="btn btn-primary btn-sm" style="width:100%">View</button>
+                      <button type="button" onclick="location.href='@Url.Action("view", "personquery", new { id=@item.Id })'" class="btn btn-primary btn-sm" style="width:100%">View</button>
                     </div>
                 </td>
                 <td style="width:10%">
