@@ -1,12 +1,104 @@
-﻿@model IEnumerable<Person>
-
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
-<div style="padding-top:5.5%">
+<script>
+    function remove(id)
+    {
+        if (confirm("Confirm?")) {
+            fetch("https://localhost:7026/api/personcommand/delete/" + id)
+            .then(setTimeout(function() { location.reload() }, 3000))
+            .catch(error => console.error('Error!', error));
+        }
+        else{
+            location.reload();
+        }
+    }
+</script>
+
+<script>
+    var page = 0;
+
+    function nextPage()
+    {
+        page = page + 10;
+        getAll(page);
+    }
+
+    function previousPage()
+    {
+        if(page < 10)
+        {
+            location.reload();
+        }
+        else
+        {
+            page = page - 10;
+            getAll(page);
+        }
+    }
+
+    function getAll(index)
+    {
+        fetch("https://localhost:7026/api/personquery/indexapi/" + index)
+            .then(response => response.json())
+            .then(render => viewIndex(render))
+            .catch(error => console.error('Error!', error));
+    }
+
+    function viewIndex(entry)
+    {
+        let index = " ";
+
+        for (let model of entry)
+        {
+            var dob = new Date(model.dob);
+            var noTime = new Date(dob.toDateString());
+
+            index += "<tr>";
+            index += "<td hidden>" + model.id + "</td >";
+            index += "<td>" + model.name + "</td >";
+            index += "<td>" + noTime + "</td >";
+            index += "<td>" + 
+                     "<div style='width:100%'>" +
+                     "<button type='button' onclick='location.href=`https://localhost:7026/person/view/` + `" + model.id +
+                     "`' class='btn btn-primary btn-sm' style='width:100%'>View</button>" + 
+                     "</div>" + 
+                     "</td >"
+            index += "<td>" + 
+                     "<div style='width:100%'>" +
+                     "<button type='button' onclick='location.href=`https://localhost:7026/person/update/` + `" + model.id +
+                     "`' class='btn btn-info btn-sm' style='width:100%'>Edit</button>" + 
+                     "</div>" + 
+                     "</td >"
+            index += "<td>" + 
+                     "<div style='width:100%'>" +
+                     "<button type='button' onclick='remove(" + model.id +
+                     ")' class='btn btn-danger btn-sm' style='width:100%'>Delete</button>" + 
+                     "</div>" + 
+                     "</td >"
+            index += "</tr >";
+        }
+
+        if(page / 10 - 1 < 0)
+        {
+            document.getElementById("previous").title = "This is the first page";
+        }
+        else
+        {
+            document.getElementById("previous").title = "Previous page: " + (page / 10);
+        }
+
+        document.getElementById("next").title = "Next page: " + (page / 10 + 2);
+        document.getElementById("indexjs").innerHTML = index;
+    }
+
+    getAll(page);
+</script>
+
+<div style="padding-top:5.5% ">
     <div style="padding-bottom:1%">
         <h1>User Database</h1>
     </div>
@@ -14,43 +106,25 @@
         <thead>
             <tr>
                 <th hidden>ID</th>
-                <th>Name</th>
-                <th>Date of Birth</th>
-                <th></th>
+                <th style='width:30%'>Name</th>
+                <th style='width:40%'>Date of Birth</th>
+                <th style='width:10%'>
+                    <div style='width:303.5%'>
+                        <button type='button' onclick="location.href='https://localhost:7026/person/download'" class='btn btn-secondary btn-sm' style='width:100%'>Download</button>
+                    </div>
+                </th>
+                <th style='width:10%'></th>
+                <th style='width:10%'></th>
             </tr>
         </thead>
-    @foreach(var item in Model)
-    {
-        <tbody>
-            <tr>
-                <td hidden>@item?.Id</td>
-                <td>@item?.name</td>
-                <td>@item?.dob</td>
-                <td style="width:10%">
-                    <div style="width:100%">
-                      <button type="button" onclick="location.href='@Url.Action("View", "Database", new {id=@item.Id })'" class="btn btn-primary btn-sm" style="width:100%">View</button>
-                    </div>
-                </td>
-                <td style="width:10%">
-                    <div style="width:100%">
-                      <button type="button" onclick="location.href='@Url.Action("Update", "Database", new {id=@item.Id })'" class="btn btn-info btn-sm" style="width:100%">Edit</button>
-                    </div>
-                </td>
-                <td style="width:10%">
-                    <div style="width:100%">
-                      <form method="post" asp-action="Delete" asp-route-Id="@item.Id">
-                          <input asp-for="@item.Id" class="form-control" value="@item?.Id" hidden/>
-                          <button type="submit" class="btn btn-danger btn-sm" style="width:100%">Delete</button>
-                      </form>
-                    </div>
-                </td>
-            </tr>
+        <tbody id="indexjs">
+            <!--index here-->
         </tbody>
-    }
     </table>
 </div>
 <div style="margin:auto; width:100%; padding-top:2%">
-    <div style="margin:auto; width: 15%">
-        <button type="button" onclick="location.href='@Url.Action("Create","Database")'" class="btn btn-success btn-sm" style="width:100%; margin: auto">Create</button>
-    </div>
+    <div style="margin:auto; width: 45%">
+        <button id="previous" type="button" onclick="previousPage()" class="btn btn-dark btn-sm" style="width:5%; margin: auto"  data-toggle="tooltip">«</button>
+        <button type="button" onclick="location.href='https://localhost:7026/person/create'" class="btn btn-success btn-sm" style="width:85%; margin: auto">Create</button>
+        <button id="next" type="button" onclick="nextPage()" class="btn btn-dark btn-sm" style="width:5%; margin: auto"  data-toggle="tooltip">»</button>
 </div>

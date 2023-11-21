@@ -51,28 +51,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Home/Javascript.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxKYXZhc2NyaXB0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/PersonQuery/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uUXVlcnlcQ3JlYXRlLmNzaHRtbA==
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Person/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/PersonQuery/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uUXVlcnlcSW5kZXguY3NodG1s
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Person/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/PersonQuery/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uUXVlcnlcVXBkYXRlLmNzaHRtbA==
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Person/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/PersonQuery/View.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uUXVlcnlcVmlldy5jc2h0bWw=
+[D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Person/View.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Assignment/Bootcamp/dotnet/dotnet/dotnet/Views/Shared/Error.cshtml]

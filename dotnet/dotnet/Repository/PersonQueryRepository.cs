@@ -2,6 +2,7 @@
 using dotnet.Data;
 using dotnet.Interface;
 using dotnet.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet.Repository
 {
@@ -13,7 +14,14 @@ namespace dotnet.Repository
             this.context = context;
         }
 
-        public async Task<IEnumerable<Person>> FindAll()
+        public async Task<IEnumerable<Person>> FindAll(int page)
+        {
+            using var connection = context.CreateConnection();
+            var findings = await connection.QueryAsync<Person>("SELECT * FROM person LIMIT 10 OFFSET @page", new { page });
+            return findings.ToList();
+        }
+
+        public async Task<IEnumerable<Person>> FindAllNoPage()
         {
             using var connection = context.CreateConnection();
             var findings = await connection.QueryAsync<Person>("SELECT * FROM person");
