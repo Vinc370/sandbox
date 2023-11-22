@@ -35,5 +35,12 @@ namespace dotnet.Controllers
             Person index = await query.FindById(id);
             return Ok(index);
         }
+
+        [HttpGet("{search}")]
+        public async Task<IActionResult> SearchAPI(String search)
+        {
+            IEnumerable<Person> index = await query.Search(search);
+            return Ok(index);
+        }
     }
 }

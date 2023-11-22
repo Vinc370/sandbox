@@ -28,6 +28,13 @@ namespace dotnet.Repository
             return findings.ToList();
         }
 
+        public async Task<IEnumerable<Person>> Search(string search)
+        {
+            using var connection = context.CreateConnection();
+            var searchData = await connection.QueryAsync<Person>("SELECT * FROM person WHERE name LIKE '%" + search + "%'");
+            return searchData.ToList();
+        }
+
         public async Task<Person> FindById(int id)
         {
             using var connection = context.CreateConnection();

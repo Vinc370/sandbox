@@ -3,16 +3,19 @@
 *@
 @{
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script>
     function remove(id)
     {
-        if (confirm("Confirm?")) {
+        if (confirm("Confirm?"))
+        {
             fetch("https://localhost:7026/api/personcommand/delete/" + id)
             .then(setTimeout(function() { location.reload() }, 2000))
             .catch(error => console.error('Error!', error));
         }
-        else{
+        else
+        {
             location.reload();
         }
     }
@@ -22,6 +25,21 @@
     var page = 0;
     var count = 0;
     var maxPage = 0;
+
+    function searchData(data)
+    {
+        if (data)
+        {
+            fetch("https://localhost:7026/api/personquery/searchapi/" + data)
+            .then(response => response.json())
+            .then(render => viewIndex(render))
+            .catch(error => console.error('Error!', error))
+        }
+        else
+        {
+            getAll(page);
+        }
+    }
 
     function pageHandler()
     {
@@ -155,13 +173,24 @@
                 <th hidden>ID</th>
                 <th style='width:30%'>Name</th>
                 <th style='width:40%'>Date of Birth</th>
+                
                 <th style='width:10%'>
-                    <div style='width:303.5%'>
-                        <button type='button' onclick="location.href='https://localhost:7026/person/download'" class='btn btn-secondary btn-sm' style='width:100%'>Download</button>
+                    <div class="input-group" style='width:170%'>
+                        <input id="searchbar" onchange="searchData(document.getElementById('searchbar').value)" type="text" placeholder="Search" style="width:100%"/>
                     </div>
                 </th>
-                <th style='width:10%'></th>
-                <th style='width:10%'></th>
+                <th style='width:10%'>
+                    <div style='width:100%'>
+                        <button type='button' onclick="searchData(document.getElementById('searchbar').value)" class='btn btn-secondary btn-sm' style='width:30%; float: right;'>
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </th>
+                <th style='width:10%'>
+                    <div style='width:100%'>
+                        <button type='button' onclick="location.href='https://localhost:7026/person/download'" class='btn btn-sm btn-secondary' style='width:100%'>Download</button>
+                    </div>
+                </th>
             </tr>
         </thead>
         <tbody id="indexjs">
