@@ -37,11 +37,10 @@ namespace dotnet.Controllers
         public async Task<FileResult> Download()
         {
             IEnumerable<Person> index = await query.FindAllNoPage();
-            var filename = "page.xlsx";
-            return Export(filename, index);
+            return Export(index);
         }
 
-        private FileResult Export(string filename, IEnumerable<Person> data)
+        private FileResult Export(IEnumerable<Person> data)
         {
             DataTable table = new DataTable("Personal Data");
 
@@ -65,7 +64,7 @@ namespace dotnet.Controllers
 
             return File(stream.ToArray(),
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                filename);
+                "export.xlsx");
         }
     }
 }

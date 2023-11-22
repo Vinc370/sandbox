@@ -15,6 +15,13 @@ namespace dotnet.Controllers
             this.query = query;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            IEnumerable<Person> index = await query.FindAllNoPage();
+            return Ok(index);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> IndexAPI(int id)
         {

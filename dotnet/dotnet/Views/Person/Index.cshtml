@@ -9,7 +9,7 @@
     {
         if (confirm("Confirm?")) {
             fetch("https://localhost:7026/api/personcommand/delete/" + id)
-            .then(setTimeout(function() { location.reload() }, 3000))
+            .then(setTimeout(function() { location.reload() }, 2000))
             .catch(error => console.error('Error!', error));
         }
         else{
@@ -20,18 +20,37 @@
 
 <script>
     var page = 0;
+    var count = 0;
+    var maxPage = 0;
+
+    function pageHandler()
+    {
+        if(count % 10 > 0)
+        {
+            maxPage = Math.ceil(count / 10) - 1;
+            console.log("Max Page: " + maxPage);
+        }
+    }
 
     function nextPage()
     {
-        page = page + 10;
-        getAll(page);
+        if(page / 10 < maxPage)
+        {
+            page = page + 10;
+            console.log("Current Page: " + (page / 10));
+            getAll(page);
+        }
+        else
+        {
+            getAll(page);
+        }
     }
 
     function previousPage()
     {
         if(page < 10)
         {
-            location.reload();
+            getAll(page);
         }
         else
         {
@@ -45,6 +64,14 @@
         fetch("https://localhost:7026/api/personquery/indexapi/" + index)
             .then(response => response.json())
             .then(render => viewIndex(render))
+            .catch(error => console.error('Error!', error));
+    }
+
+    function checkData()
+    {
+        fetch("https://localhost:7026/api/personquery/all/")
+            .then(response => response.json())
+            .then(counter => countData(counter))
             .catch(error => console.error('Error!', error));
     }
 
@@ -91,11 +118,31 @@
             document.getElementById("previous").title = "Previous page: " + (page / 10);
         }
 
-        document.getElementById("next").title = "Next page: " + (page / 10 + 2);
+        if(page / 10 >= maxPage)
+        {
+            document.getElementById("next").title = "This is the last page";
+        }
+        else
+        {
+            document.getElementById("next").title = "Next page: " + (page / 10 + 2);
+        }
+
         document.getElementById("indexjs").innerHTML = index;
     }
 
+    function countData(entry)
+        {
+            for (let model of entry)
+            {
+                count = count + 1;
+                console.log(count);
+            }
+            
+            pageHandler();
+        }
+
     getAll(page);
+    checkData();
 </script>
 
 <div style="padding-top:5.5% ">
