@@ -36,10 +36,24 @@ namespace dotnet.Controllers
             return Ok(index);
         }
 
-        [HttpGet("{search}")]
-        public async Task<IActionResult> SearchAPI(String search)
+        [HttpGet("{search}/{page}")]
+        public async Task<IActionResult> SearchAPI(String search, int page)
         {
-            IEnumerable<Person> index = await query.Search(search);
+            IEnumerable<Person> index = await query.Search(search, page);
+            return Ok(index);
+        }
+
+        [HttpGet("{asc}/{page}")]
+        public async Task<IActionResult> Sort(bool asc, int page)
+        {
+            IEnumerable<Person> index = await query.SortByAge(asc, page);
+            return Ok(index);
+        }
+
+        [HttpGet("{asc}/{page}")]
+        public async Task<IActionResult> SortName(bool asc, int page)
+        {
+            IEnumerable<Person> index = await query.SortByName(asc, page);
             return Ok(index);
         }
     }

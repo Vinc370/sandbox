@@ -28,11 +28,47 @@ namespace dotnet.Repository
             return findings.ToList();
         }
 
-        public async Task<IEnumerable<Person>> Search(string search)
+        public async Task<IEnumerable<Person>> Search(String search, int page)
         {
             using var connection = context.CreateConnection();
-            var searchData = await connection.QueryAsync<Person>("SELECT * FROM person WHERE name LIKE '%" + search + "%'");
+            var searchData = await connection.QueryAsync<Person>("SELECT * FROM person WHERE name LIKE '%" + search + "%' LIMIT 10 OFFSET " + page);
             return searchData.ToList();
+        }
+
+        public async Task<IEnumerable<Person>> SortByName(bool asc, int page)
+        {
+            String sqlQuery;
+
+            if (asc)
+            {
+                sqlQuery = "SELECT * FROM person ORDER BY name ASC LIMIT 10 OFFSET " + page;
+            }
+            else
+            {
+                sqlQuery = "SELECT * FROM person ORDER BY name DESC LIMIT 10 OFFSET " + page;
+            }
+
+            using var connection = context.CreateConnection();
+            var sortName = await connection.QueryAsync<Person>(sqlQuery);
+            return sortName.ToList();
+        }
+
+        public async Task<IEnumerable<Person>> SortByAge(bool asc, int page)
+        {
+            String sqlQuery;
+
+            if (asc)
+            {
+                sqlQuery = "SELECT * FROM person ORDER BY dob ASC LIMIT 10 OFFSET " + page;
+            }
+            else
+            {
+                sqlQuery = "SELECT * FROM person ORDER BY dob DESC LIMIT 10 OFFSET " + page;
+            }
+
+            using var connection = context.CreateConnection();
+            var sortAge = await connection.QueryAsync<Person>(sqlQuery);
+            return sortAge.ToList();
         }
 
         public async Task<Person> FindById(int id)

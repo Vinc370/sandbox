@@ -3,7 +3,8 @@
 *@
 @{
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 
 <script>
     function remove(id)
@@ -26,14 +27,50 @@
     var count = 0;
     var maxPage = 0;
 
+    function sortName(asc)
+    {
+        if (asc)
+        {
+            fetch("https://localhost:7026/api/personquery/sortname/" + asc + "/" + page)
+                .then(response => response.json())
+                .then(render => viewIndex(render))
+                .catch(error => console.error('Error!', error))
+        }
+        else
+        {
+            fetch("https://localhost:7026/api/personquery/sortname/" + asc + "/" + page)
+                .then(response => response.json())
+                .then(render => viewIndex(render))
+                .catch(error => console.error('Error!', error))
+        }
+    }
+
+    function sortAge(asc)
+    {
+        if (asc)
+        {
+            fetch("https://localhost:7026/api/personquery/sort/" + asc + "/" + page)
+                .then(response => response.json())
+                .then(render => viewIndex(render))
+                .catch(error => console.error('Error!', error))
+        }
+        else
+        {
+            fetch("https://localhost:7026/api/personquery/sort/" + asc + "/" + page)
+                .then(response => response.json())
+                .then(render => viewIndex(render))
+                .catch(error => console.error('Error!', error))
+        }
+    }
+
     function searchData(data)
     {
         if (data)
         {
-            fetch("https://localhost:7026/api/personquery/searchapi/" + data)
-            .then(response => response.json())
-            .then(render => viewIndex(render))
-            .catch(error => console.error('Error!', error))
+            fetch("https://localhost:7026/api/personquery/searchapi/" + data + "/" + page)
+                .then(response => response.json())
+                .then(render => viewIndex(render))
+                .catch(error => console.error('Error!', error))
         }
         else
         {
@@ -46,6 +83,11 @@
         if(count % 10 > 0)
         {
             maxPage = Math.ceil(count / 10) - 1;
+            console.log("Max Page: " + maxPage);
+        }
+        else
+        {
+            maxPage = Math.ceil(count / 10);
             console.log("Max Page: " + maxPage);
         }
     }
@@ -105,7 +147,9 @@
             index += "<tr>";
             index += "<td hidden>" + model.id + "</td >";
             index += "<td>" + model.name + "</td >";
+            index += "<td> </td >";
             index += "<td>" + noTime + "</td >";
+            index += "<td> </td >";
             index += "<td>" + 
                      "<div style='width:100%'>" +
                      "<button type='button' onclick='location.href=`https://localhost:7026/person/view/` + `" + model.id +
@@ -161,6 +205,8 @@
 
     getAll(page);
     checkData();
+    console.log(page);
+    console.log(maxPage);
 </script>
 
 <div style="padding-top:5.5% ">
@@ -171,8 +217,34 @@
         <thead>
             <tr>
                 <th hidden>ID</th>
-                <th style='width:30%'>Name</th>
-                <th style='width:40%'>Date of Birth</th>
+
+                <th style='width:25%'>
+                    Name
+                    <div style="float: right">
+                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortName(true)">
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortName(false)">
+                            <i class="bi bi-arrow-down"></i>
+                        </button>
+                    </div>
+                </th>
+
+                <th style='width:2.5%'></th>
+
+                <th style='width:40%'>
+                    Date of Birth
+                    <div style="float: right">
+                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(true)">
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(false)">
+                            <i class="bi bi-arrow-down"></i>
+                        </button>
+                    </div>
+                </th>
+
+                <th style='width:2.5%'></th>
                 
                 <th style='width:10%'>
                     <div class="input-group" style='width:170%'>
