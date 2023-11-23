@@ -23,14 +23,21 @@
 </script>
 
 <script>
+    var mode = "index";
+    var sortNameMode = true;
+    var sortAgeMode = true;
     var page = 0;
     var count = 0;
     var maxPage = 0;
 
     function sortName(asc)
     {
+        mode = "sortName";
+
         if (asc)
         {
+            sortNameMode = true;
+
             fetch("https://localhost:7026/api/personquery/sortname/" + asc + "/" + page)
                 .then(response => response.json())
                 .then(render => viewIndex(render))
@@ -38,6 +45,8 @@
         }
         else
         {
+            sortNameMode = false;
+
             fetch("https://localhost:7026/api/personquery/sortname/" + asc + "/" + page)
                 .then(response => response.json())
                 .then(render => viewIndex(render))
@@ -47,8 +56,12 @@
 
     function sortAge(asc)
     {
+        mode = "sortAge";
+
         if (asc)
         {
+            sortAgeMode = true;
+
             fetch("https://localhost:7026/api/personquery/sort/" + asc + "/" + page)
                 .then(response => response.json())
                 .then(render => viewIndex(render))
@@ -56,6 +69,8 @@
         }
         else
         {
+            sortAgeMode = false;
+
             fetch("https://localhost:7026/api/personquery/sort/" + asc + "/" + page)
                 .then(response => response.json())
                 .then(render => viewIndex(render))
@@ -98,7 +113,22 @@
         {
             page = page + 10;
             console.log("Current Page: " + (page / 10));
-            getAll(page);
+
+            switch(mode)
+            {
+                case "index":
+                    getAll(page);
+                    break;
+                case "sortName":
+                    sortName(sortNameMode);
+                    break;
+                case "sortAge":
+                    sortAge(sortAgeMode);
+                    break;
+                default:
+                    getAll(page);
+            }
+            
         }
         else
         {
@@ -115,7 +145,21 @@
         else
         {
             page = page - 10;
-            getAll(page);
+            
+            switch(mode)
+            {
+                case "index":
+                    getAll(page);
+                    break;
+                case "sortName":
+                    sortName(sortNameMode);
+                    break;
+                case "sortAge":
+                    sortAge(sortAgeMode);
+                    break;
+                default:
+                    getAll(page);
+            }
         }
     }
 
@@ -220,11 +264,11 @@
 
                 <th style='width:25%'>
                     Name
-                    <div style="float: right">
-                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortName(true)">
+                    <div class="btn-group btn-group-toggle" style="float: right">
+                        <button id="sortName" class="btn btn-outline-info btn-sm" type="button" onclick="sortName(true)">
                             <i class="bi bi-arrow-up"></i>
                         </button>
-                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortName(false)">
+                        <button id="sortName" class="btn btn-outline-info btn-sm" type="button" onclick="sortName(false)">
                             <i class="bi bi-arrow-down"></i>
                         </button>
                     </div>
@@ -234,11 +278,11 @@
 
                 <th style='width:40%'>
                     Date of Birth
-                    <div style="float: right">
-                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(true)">
+                    <div class="btn-group btn-group-toggle" style="float: right">
+                        <button id="sortAge" class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(true)">
                             <i class="bi bi-arrow-up"></i>
                         </button>
-                        <button class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(false)">
+                        <button id="sortAge" class="btn btn-outline-info btn-sm" type="button" onclick="sortAge(false)">
                             <i class="bi bi-arrow-down"></i>
                         </button>
                     </div>
